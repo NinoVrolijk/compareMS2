@@ -1,1 +1,1 @@
-The data folder contains test data to run the compareMS2 GUI.
+The data folder contains data provided by the LUMC.
