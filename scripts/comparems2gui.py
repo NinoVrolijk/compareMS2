@@ -18,6 +18,7 @@ class Gui(QMainWindow, QWidget):
         self.hide()
 
     def checkbox(self):
+        '''Creating all checkboxes present on the GUI screen'''
         self.check_capture_log = QCheckBox("Capture log", self)
         self.check_rich_output = QCheckBox("Rich output", self)
         self.avcps = QCheckBox("Average all comparisons per species", self)
@@ -25,20 +26,18 @@ class Gui(QMainWindow, QWidget):
         self.check_MEGA_output = QCheckBox("MEGA output", self)
         self.check_NEELY_output = QCheckBox("NEELY output", self)
         self.check_missing_values = QCheckBox("Impute missing values", self)
-        self.check_capture_log.move(10,250)
-        self.check_rich_output.move(150, 250)
-        self.checkbox_orientation(self.check_nexus_output,10)
-        self.checkbox_orientation(self.check_MEGA_output, 150)
-        self.checkbox_orientation(self.check_NEELY_output, 290)
-        self.checkbox_orientation(self.check_missing_values,440)
+        self.checkbox_orientation(self.check_nexus_output,30)
+        self.checkbox_orientation(self.check_MEGA_output, 170)
+        self.checkbox_orientation(self.check_NEELY_output, 310)
+        self.checkbox_orientation(self.check_missing_values,460)
 
     def checkbox_orientation(self,checkbox,orientation):
         checkbox.resize(250,30)
         checkbox.move(orientation,520)
-        self.check_capture_log.move(10, 250)
-        self.check_rich_output.move(150, 250)
+        self.check_capture_log.move(30, 250)
+        self.check_rich_output.move(170, 250)
         self.avcps.resize(250, 30)
-        self.avcps.move(10, 480)
+        self.avcps.move(30, 480)
         self.check_capture_log.setChecked(True)
 
     def text_box(self):
@@ -56,7 +55,7 @@ class Gui(QMainWindow, QWidget):
         self.text_box_orientation(self.text_box6,450)
 
     def text_box_orientation(self,text_box,orientation):
-        text_box.move(300, orientation)
+        text_box.move(340, orientation)
         text_box.resize(400, 30)
         self.text_box1.setText('c:')
         self.text_box2.setText('2.05')
@@ -88,10 +87,10 @@ class Gui(QMainWindow, QWidget):
         self.text_label8.setText('Table with sample to species relationships:')
         self.text_label9.setText('Output filename root')
         self.text_label10.setText('Score (cosine) cutoff')
-        self.text_label1.move(5, 10)
-        self.text_label5.move(750, 160)
-        self.text_label6.move(750, 210)
-        self.text_label7.move(5, 270)
+        self.text_label1.move(15, 10)
+        self.text_label5.move(770, 160)
+        self.text_label6.move(770, 210)
+        self.text_label7.move(15, 270)
         self.text_label1.resize(300, 100)
         self.text_label7.resize(500, 100)
         self.label_style(self.text_label2, 100)
@@ -102,7 +101,7 @@ class Gui(QMainWindow, QWidget):
         self.label_style(self.text_label10, 440)
 
     def label_style(self,text_label,orientation):
-        text_label.move(5, orientation)
+        text_label.move(30, orientation)
         text_label.resize(300, 50)
         font = QFont("Arial",9)
         text_label.setFont(font)
@@ -119,17 +118,19 @@ class Gui(QMainWindow, QWidget):
         self.button_style(self.browse_button0,110) #initiates button style function.
         self.button_style(self.browse_button1,350)
         self.submit_button = QPushButton('Submit', self)
-        self.cancel_button = QPushButton('Cancel', self)
+        self.cancel_button = QPushButton('Exit', self)
 
-        self.submit_button.move(10, 570)
-        self.cancel_button.move(160, 570)
+        self.submit_button.move(30, 570)
+        self.cancel_button.move(180, 570)
+        self.submit_button.resize(100, 33)
+        self.cancel_button.resize(100,33)
         self.submit_button.setStyleSheet("border-radius:7px; border: 2px solid ;font: bold; background-color: darkblue; color: white;border-color: white;")
         self.cancel_button.setStyleSheet("border-radius: 7px;border: 2px solid ;font: bold; background-color: darkblue; color: white;border-color: white;")
 
     def button_style(self,button,orientantion):
         button.setStyleSheet("border-radius: 7px;border: 2px solid ;font: bold; background-color: darkblue; color: white;border-color: white;")
-        button.resize(100, 30)
-        button.move(750,orientantion)
+        button.resize(100, 33)
+        button.move(770,orientantion)
 
     def menubar(self):
         #create menubar
@@ -141,7 +142,7 @@ class Gui(QMainWindow, QWidget):
         self.help = self.bar.addMenu('Help')
 
     def reveal(self):
-        self.intro_screen.hide()
+        self.intro_screen.hide()          #hides intro screen and shows the actual GUI.
         self.setWindowTitle('CompareMS2Gui')
         self.setGeometry(500,300,150,150) #Orientation of screen
         self.resize(1000,620)             #Size of screen

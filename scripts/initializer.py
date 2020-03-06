@@ -1,4 +1,6 @@
 from comparems2gui import *
+from UPGMA1 import *
+from tree_analysis import *
 import sys
 
 class functional (Gui):
@@ -92,16 +94,34 @@ class functional (Gui):
             self.text_box1.setText(self.filepath)
         fp = self.text_box1.text()
         if len(fp) > len("c:"): #this determines whether a complete file path has been submitted.
-            msg.setText("Congratulations, your input has been succesfully submitted.")
+            msg.setText("Congratulations, your input has been succesfully submitted. The tree is being generated")
             msg.setIcon(QMessageBox.Information)
             x = msg.exec_() #Shows message box
-            # Here the following screen must be called upon
-            # Fylogenetic analysis screen
+            self.hide()
+            distance_matrix_file = self.text_box5.text()
+            self.upgma_result = UPGMA1(distance_matrix_file)# The Distance matrix and labels are input to this method. It returns a completed tree.
+            self.show_tree()
+
         elif len(fp) <= len("c:"):
             msg.setText("No filepath has been sumbitted! Try again")
             msg.setIcon(QMessageBox.Warning)
             x = msg.exec_()  # Shows message box
             self.new_trigger() #Wipes the screen.
+
+    def show_tree(self):
+        '''Importing and displaying tree screen.'''
+        self.ta_screen = Tree_analysis()
+        self.ta_screen.show()
+        self.ta_screen.return_button.clicked.connect(self.return_GUItrigger)
+        percentual_progress = (self.upgma_result.counter_labels / 100) * 100 #Divide with amount of samples present in input file. 100 is generic number used to test.
+        self.ta_screen.progress.setValue(percentual_progress)
+        #while count < 101:
+        #    count += 1
+        #    time.sleep(0.5) #Het wacht elke keer een halve seconde voor die 1 erbij doet.
+        #    self.progress.setValue(count)
+    def return_GUItrigger(self):
+        self.ta_screen.hide()
+        self.show()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

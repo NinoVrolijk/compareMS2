@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 import sys
 
 class Introduction(QMainWindow, QWidget):
-    def __init__(self, parent=None):
+    def __init__(self):
         super().__init__()
         self.setimage()
         self.text_labels()
@@ -30,6 +30,7 @@ class Introduction(QMainWindow, QWidget):
         self.info_button.move(475, 450)
         self.info_button.clicked.connect(self.popup)
 
+
     def popup(self):
         info = QMessageBox()
         info.setWindowTitle("compareMS2 information")
@@ -37,6 +38,7 @@ class Introduction(QMainWindow, QWidget):
         info.setIcon(QMessageBox.Information)
         info.setWindowIcon(self.app_icon)
         x = info.exec_()  # Shows message box
+
     def window_specs(self):
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint) #cancels out maximize option
         self.app_icon = QIcon("ms2compare.png")
@@ -45,20 +47,24 @@ class Introduction(QMainWindow, QWidget):
     def text_labels(self):
         self.text_header = QLabel(self)
         self.text_subtitle = QLabel(self)
+        self.text_author = QLabel(self)
         self.text_header.setText('compareMS2Gui')
         self.text_subtitle.setText('Molecular phylogenetics analyses based on mass spectrometry')
+        self.text_author.setText('© LUMC 2020')
         self.text_header.move(380,50)
         self.text_subtitle.move(310,90)
         self.text_header.resize(300, 50)
         self.text_subtitle.resize(500,50)
-
+        self.text_author.move(900,580)
         font = QFont("Arial", 15,QFont.ExtraBold)
         font2 = QFont("Arial",7,QFont.Cursive)
+        font3 = QFont("Arial",7,QFont.ExtraBold)
         self.text_header.setFont(font)
         self.text_subtitle.setFont(font2)
+        self.text_author.setFont(font3)
 
     def reveal(self):
-        self.setWindowTitle('Introduction')
+        self.setWindowTitle('ms2compare: Introduction')
         self.setGeometry(500, 300, 150, 150)  # Orientation of screen
         self.resize(1000, 620)  # Size of screen
         self.show()  # show screen
