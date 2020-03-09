@@ -1,28 +1,32 @@
 from ete3 import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 class UPGMA1():         #Here do you provide other classes thar are inherited.
     def __init__(self,distance_matrix_file): #Here do you give input to the class ADD DMF
         super().__init__()
-        dmf = distance_matrix_file.strip()
+        dmf = distance_matrix_file.strip() #Place distance next to self in init
         self.input_gen(dmf)
 
     def input_gen(self,dmf):
         self.M_labels2 = []
         self.M2 = [[]]
-        self.counter_labels = 0
+        self.label_count = 0
         with open(dmf,'r') as f:
             for line in f:
                 if line.startswith('#') and line[1].isupper():
                     self.M_labels2.append(line[1:].strip()) #Remove \n and #
-                    self.counter_labels+=1
+                    self.label_count += 1
                 if line[0].isdigit():
-                    if len(line.strip().split('\t')) > 0:#Each distance is seperate item in list.
+                    if len(line.strip().split(' ')) > 0:#Each distance is seperate item in list.
                         l = []                           #Wipes after each iteration of the loop.
-                        for i in (line.strip().split('\t')):
+                        for i in (line.strip().split(' ')):
                             l.append(float(i))
-                            if len(l) == len((line.strip().split('\t'))): #If lengths are equal, every distance is acounted for.
+                            if len(l) == len((line.strip().split(' '))): #If lengths are equal, every distance is acounted for.
                                 self.M2.append(l) #append M2 with all distances on line.
         output = self.UPGMA(self.M2, self.M_labels2)
+        print (output)
         self.create_tree(output) #Use output to create tree.
 
     def create_tree(self,output):

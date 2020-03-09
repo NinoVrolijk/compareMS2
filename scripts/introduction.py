@@ -43,6 +43,9 @@ class Introduction(QMainWindow, QWidget):
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint) #cancels out maximize option
         self.app_icon = QIcon("ms2compare.png")
         self.setWindowIcon(self.app_icon)
+        self.setWindowTitle('ms2compare: Introduction')
+        self.setGeometry(500, 300, 150, 150)  # Orientation of screen
+        self.resize(1000, 620)  # Size of screen
 
     def text_labels(self):
         self.text_header = QLabel(self)
@@ -64,9 +67,6 @@ class Introduction(QMainWindow, QWidget):
         self.text_author.setFont(font3)
 
     def reveal(self):
-        self.setWindowTitle('ms2compare: Introduction')
-        self.setGeometry(500, 300, 150, 150)  # Orientation of screen
-        self.resize(1000, 620)  # Size of screen
         self.show()  # show screen
 
 if __name__ == "__main__":
