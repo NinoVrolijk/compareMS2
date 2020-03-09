@@ -66,8 +66,3 @@ class tree_analysis(QDialog):
         vbox.addWidget(self.button_row)
         self.setLayout(vbox)
         self.show()
-
-#if __name__ == "__main__":
-#    App = QApplication(sys.argv)
-#    Window = tree_analysis()
-#    sys.exit(App.exec())
