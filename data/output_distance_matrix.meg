@@ -1,0 +1,12 @@
+#mega
+TITLE: output_distance_matrix.meg (lower-left triangular matrix, cutoff=0.8000)
+
+#Homo_sapiens
+#Ursus_arctos
+#Ursus_maritimus
+#Pan_troglodytes
+
+
+15.72762
+16.14120 2.07069
+9.73607 47.25122 44.91254
