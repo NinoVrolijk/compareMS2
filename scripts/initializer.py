@@ -1,5 +1,4 @@
 from comparems2gui import *
-from UPGMA1 import *
 from tree_analysis import *
 import sys
 
@@ -87,7 +86,6 @@ class functional (Gui):
         self.check_missing_values.setChecked(False)
 
     def submitmethod(self):
-
         msg = QMessageBox()
         msg.setWindowTitle("Submit status")
         directory_file = self.text_box1.text()
@@ -99,9 +97,8 @@ class functional (Gui):
             msg.setIcon(QMessageBox.Information)
             x = msg.exec_() #Shows message box
             self.hide()
-            distance_matrix_file = self.text_box5.text()
-            self.upgma_result = UPGMA1(distance_matrix_file)# The Distance matrix and labels are input to this method. It returns a completed tree.
-            self.show_tree()
+            self.distance_matrix_file = self.text_box5.text()
+            self.tree_processing(self.distance_matrix_file)
 
         elif len(fp) <= len("c:") or len(self.text_box5.text()) == 0:
             msg.setText("Not all inputs have been specified! Try again")
@@ -109,18 +106,16 @@ class functional (Gui):
             x = msg.exec_()  # Shows message box
             self.new_trigger() #Wipes the screen.
 
-    def show_tree(self):
-        '''Importing and displaying tree screen.'''
-        self.ta_screen = tree_analysis()
-        self.ta_screen.show()
+    def tree_processing(self,distance_matrix_file):
+        self.tree = tree_analysis(distance_matrix_file)
+        self.tree.refresh_button.clicked.connect(self.refresh_tree)
+        percentual_progress = (self.tree.upgma_result.label_count / 7) * 100  # Divide with amount of samples present in input file. 100 is generic number used to test.
+        self.tree.progress.setValue(percentual_progress)
+        self.tree.show()
 
-        percentual_progress = (self.upgma_result.label_count / 100) * 100 #Divide with amount of samples present in input file. 100 is generic number used to test.
-        self.ta_screen.progress.setValue(percentual_progress)
-        self.ta_screen.return_button.clicked.connect(self.return_GUItrigger)
+    def refresh_tree(self):
+        self.tree_processing(self.distance_matrix_file)
 
-    def return_GUItrigger(self):
-        self.ta_screen.hide()
-        self.show()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

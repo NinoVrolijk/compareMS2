@@ -64,6 +64,9 @@ class Gui(QMainWindow, QWidget):
     def window_specs(self):
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint) #cancels out maximize optio
         app_icon = QIcon("ms2compare.png")
+        self.setWindowTitle('CompareMS2Gui')
+        self.setGeometry(500,300,150,150) #Orientation of screen
+        self.resize(1000,620)             #Size of screen
         self.setWindowIcon(app_icon)
 
     def text_labels(self):
@@ -143,7 +146,4 @@ class Gui(QMainWindow, QWidget):
 
     def reveal(self):
         self.intro_screen.hide()          #hides intro screen and shows the actual GUI.
-        self.setWindowTitle('CompareMS2Gui')
-        self.setGeometry(500,300,150,150) #Orientation of screen
-        self.resize(1000,620)             #Size of screen
         self.show()                      #show screen

@@ -26,7 +26,6 @@ class UPGMA1():         #Here do you provide other classes thar are inherited.
                             if len(l) == len((line.strip().split(' '))): #If lengths are equal, every distance is acounted for.
                                 self.M2.append(l) #append M2 with all distances on line.
         output = self.UPGMA(self.M2, self.M_labels2)
-        print (output)
         self.create_tree(output) #Use output to create tree.
 
     def create_tree(self,output):
