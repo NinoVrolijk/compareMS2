@@ -1,12 +1,14 @@
 import sys
 from initializer import *
 from PyQt5.QtWidgets import *
+from PyQt5 import QtTest
 from UPGMA1 import *
-import time
+
 
 class tree_analysis(QDialog):
     def __init__(self,distance_matrix): #add distance_matrix
         super().__init__()
+        #distance_matrix = 'first_test_fraction_gt80.meg'
         self.title = 'ms2compare'
         self.left = 600
         self.top = 250
@@ -16,6 +18,7 @@ class tree_analysis(QDialog):
         self.setWindowIcon(self.app_icon)
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint)  # cancels out maximize option
         self.image_generator(distance_matrix)
+
     def image_generator(self,distance_matrix):
         self.upgma_result = UPGMA1(distance_matrix)
         self.InitWindow()
@@ -41,17 +44,17 @@ class tree_analysis(QDialog):
         filler_label = QLabel(self)
         hbox = QHBoxLayout()
         exit_button = QPushButton('Terminate', self)
-        self.refresh_button = QPushButton('Refresh', self)
+        self.return_button = QPushButton('Return', self)
         exit_button.setMaximumWidth(100)
-        self.refresh_button.setMaximumWidth(100)
+        self.return_button.setMaximumWidth(100)
         exit_button.setStyleSheet(
             "border-radius:7px; border: 2px solid ;font: bold; background-color: darkblue; color: white;border-color: white;"
         )
-        self.refresh_button.setStyleSheet(
+        self.return_button.setStyleSheet(
             "border-radius:7px; border: 2px solid ;font: bold; background-color: darkblue; color: white;border-color: white;"
         )
         hbox.addWidget(exit_button)
-        hbox.addWidget(self.refresh_button)
+        hbox.addWidget(self.return_button)
         hbox.addWidget(filler_label)
         exit_button.clicked.connect(self.quit_trigger)
         self.button_row.setLayout(hbox)
@@ -69,6 +72,10 @@ class tree_analysis(QDialog):
         vbox.addWidget(self.groupBox1)
         vbox.addWidget(self.button_row)
         self.setLayout(vbox)
+        #self.show()
+
+
+
 
 
 #if __name__ == "__main__":

@@ -98,7 +98,9 @@ class functional (Gui):
             x = msg.exec_() #Shows message box
             self.hide()
             self.distance_matrix_file = self.text_box5.text()
-            self.tree_processing(self.distance_matrix_file)
+            while True:
+                self.tree_processing(self.distance_matrix_file)
+                QtTest.QTest.qWait(10000) #Miliseconds. #cheks distance_matrix_file every X amount of miliseconds.
 
         elif len(fp) <= len("c:") or len(self.text_box5.text()) == 0:
             msg.setText("Not all inputs have been specified! Try again")
@@ -108,13 +110,14 @@ class functional (Gui):
 
     def tree_processing(self,distance_matrix_file):
         self.tree = tree_analysis(distance_matrix_file)
-        self.tree.refresh_button.clicked.connect(self.refresh_tree)
         percentual_progress = (self.tree.upgma_result.label_count / 7) * 100  # Divide with amount of samples present in input file. 100 is generic number used to test.
         self.tree.progress.setValue(percentual_progress)
+        self.tree.return_button.clicked.connect(self.return_gui)
         self.tree.show()
 
-    def refresh_tree(self):
-        self.tree_processing(self.distance_matrix_file)
+    def return_gui(self):
+        self.tree.hide()
+        self.show()
 
 
 if __name__ == "__main__":
