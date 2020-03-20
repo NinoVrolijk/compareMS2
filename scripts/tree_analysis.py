@@ -41,12 +41,14 @@ class tree_analysis(QDialog):
         self.image_generator(distance_matrix)
 
     def image_generator(self,distance_matrix):
-        '''Calls UPGMA algorithm and saves the tree in newick format.'''
+        '''Induces UPGMA algorithm and saves newick tree format.
+        '''
         self.upgma_result = UPGMA1(distance_matrix)
         self.InitWindow() #Call window initializer
 
     def layout_image(self):
-        '''Creates groupbox. This vertical groupbox contains the tree image and a progress bar.'''
+        '''Creates groupbox. This vertical groupbox contains the tree image and a progress bar.
+        '''
         self.groupBox1 = QGroupBox("Tree analysis")
         self.groupBox1.setStyleSheet("QGroupBox { font-weight: bold; font-size: 18px } ")
         vbox = QVBoxLayout()
@@ -61,7 +63,8 @@ class tree_analysis(QDialog):
         self.groupBox1.setLayout(vbox)
 
     def layout_buttons(self):
-        '''Create a horizontal groupbox that contains a termination and return button.'''
+        '''Create a horizontal groupbox that contains a termination and return button.
+        '''
         self.button_row = QGroupBox()
         filler_label = QLabel(self) #Empty label to scale buttons.
         hbox = QHBoxLayout()
@@ -82,10 +85,13 @@ class tree_analysis(QDialog):
         self.button_row.setLayout(hbox)
         
     def quit_trigger(self):
+        '''  Terminates program after connection of pushbutton. 
+        '''
         sys.exit()
 
     def InitWindow(self):
-        '''' Initializes window.'''
+        '''' Initializes window.
+        '''
         self.setWindowTitle(self.title)
         self.setStyleSheet("background-color:white;")
         self.setGeometry(self.left, self.top, self.width, self.height)
