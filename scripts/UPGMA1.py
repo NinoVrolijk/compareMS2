@@ -4,12 +4,23 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 class UPGMA1():         #Here do you provide other classes thar are inherited.
-    def __init__(self,distance_matrix_file): #Here do you give input to the class ADD DMF
+    '''
+    This class creates a newick file formatted phylogenetic tree. The program requires a MEGA file and processes this file using a UPGMA algorithm.
+    The implementation of the UPGMA algorithm in python is created by Lex8Erna and is publicly
+    available on Github: https://github.com/lex8erna/UPGMApy/blob/master/UPGMA.py
+    License: MIT
+    Copyright <2015> <Lex8Erna>
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    '''
+    def __init__(self,distance_matrix_file):
         super().__init__()
-        dmf = distance_matrix_file.strip() #Place distance next to self in init
+        dmf = distance_matrix_file.strip() #Remove any spaces at the end of filename.
         self.input_gen(dmf)
 
     def input_gen(self,dmf):
+        ''' Input is a distance matrix file. This file gets processed into lists that serve as input for the UPGMA algorithm.'''
         self.M_labels2 = []
         self.M2 = [[]]
         self.label_count = 0
@@ -25,15 +36,23 @@ class UPGMA1():         #Here do you provide other classes thar are inherited.
                             l.append(float(i))
                             if len(l) == len((line.strip().split(' '))): #If lengths are equal, every distance is acounted for.
                                 self.M2.append(l) #append M2 with all distances on line.
-        output = self.UPGMA(self.M2, self.M_labels2)
+        output = self.UPGMA(self.M2, self.M_labels2) #Call the UPGMA algorithm.
         self.create_tree(output) #Use output to create tree.
 
     def create_tree(self,output):
+        ''' This method visualizes the tree into a .png file.'''
         t = Tree(output + ";", format=1)
         ts = TreeStyle()
         ts.show_leaf_name = True
-        ts.arc_start = -180  # 0 degrees = 3 o'clock
-        ts.arc_span = 180
+        for n in t.traverse():
+            nstyle = NodeStyle()
+            nstyle["fgcolor"] = "black"
+            nstyle["size"] = 10
+            n.set_style(nstyle)
+
+        # Let's now modify the aspect of the root node
+        t.img_style["size"] = 10
+        t.img_style["fgcolor"] = "blue"
         t.render("test.png", w=183, units="mm", tree_style=ts)
         return t
 

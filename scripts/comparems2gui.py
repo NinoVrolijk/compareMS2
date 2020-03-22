@@ -1,7 +1,63 @@
 from introduction import * #Imports the PYQT modules from introduction.
 
 class Gui(QMainWindow, QWidget):
-    def __init__(self, parent=None):
+    '''
+    This class creates the central input screen for the compareMS2Gui pipeline.
+
+    ...
+    Parent class
+    -----------
+    QMainWindow, QWidget.
+        Both classes provide PyQT5 properties used to create the introduction screen of the CompareMS2Gui pipeline.
+    Attributes
+    ---------
+    X
+    Methods
+    -------
+    introduction(self):
+        Method that imports the Introduction screen and hides the central import screen.
+    checkbox(self):
+        Method that creates all required checkboxes.
+    checkbox_orientation(self,checkbox,orientation):
+        A method that places all checkboxes that have been created in the method checkbox(self) onto the central input screen.
+        Attributes
+        ---------
+        checkbox
+            Checkbox created in the method "checkbox(self)"
+        Orientation
+            Integer that represents the horizontal placement of the checkbox.
+    text_box(self):
+        Method that creates all required text boxes (input) and passes them to the text_box_orientation method for placement.
+
+    text_box_orientation(self,text_box,orientation):
+        A method that places all text boxes (input) that have been created in the method text_box(self) onto the central input screen.
+        Attributes
+        ---------
+        text_box
+            text_box created in the method "text_box(self)"
+        Orientation
+            Integer that represents the horizontal placement of the text box.
+
+    window_specs(self):
+        Additional window spefications.
+            Removed maximize button.
+            Set logo.
+    text_labels(self):
+        Method that creates all required text labels and passes them to the label_style method for placement and styling.
+
+    label_style(self,text_label,orientation):
+
+    button_creator(self):
+
+    button_style(self,button,orientation):
+
+    menubar(self):
+
+    reveal(self):
+
+
+    '''
+    def __init__(self):
         super().__init__()
         self.introduction()
         self.window_specs()
@@ -10,15 +66,18 @@ class Gui(QMainWindow, QWidget):
         self.button_creator()
         self.text_labels()
         self.checkbox()
+
     def introduction(self):
-        '''Importing introduction screen and hide GUI.'''
+        '''Method that imports the Introduction screen and hides the central import screen..
+        '''
         self.intro_screen = Introduction()
         self.intro_screen.show()
         self.intro_screen.continue_button.clicked.connect(self.reveal)
         self.hide()
 
     def checkbox(self):
-        '''Creating all checkboxes present on the GUI screen'''
+        '''CMethod that creates all required checkboxes.
+        '''
         self.check_capture_log = QCheckBox("Capture log", self)
         self.check_rich_output = QCheckBox("Rich output", self)
         self.avcps = QCheckBox("Average all comparisons per species", self)
@@ -32,6 +91,8 @@ class Gui(QMainWindow, QWidget):
         self.checkbox_orientation(self.check_missing_values,460)
 
     def checkbox_orientation(self,checkbox,orientation):
+        ''' A method that places all checkboxes that have been created in the method checkbox(self) onto the central input screen.
+        '''
         checkbox.resize(250,30)
         checkbox.move(orientation,520)
         self.check_capture_log.move(30, 250)
@@ -41,6 +102,9 @@ class Gui(QMainWindow, QWidget):
         self.check_capture_log.setChecked(True)
 
     def text_box(self):
+        '''
+        Method that creates all required text boxes (input) and passes them to the text_box_orientation method for placement.
+        '''
         self.text_box1 = QLineEdit(self)
         self.text_box2 = QLineEdit(self)
         self.text_box3 = QLineEdit(self)
@@ -55,6 +119,10 @@ class Gui(QMainWindow, QWidget):
         self.text_box_orientation(self.text_box6,450)
 
     def text_box_orientation(self,text_box,orientation):
+
+        '''A method that places all text boxes (input) that have been created in text_box(self) onto the central input screen.
+        Some text_boxes receive a generic input that serves as an example.
+        '''
         text_box.move(340, orientation)
         text_box.resize(400, 30)
         self.text_box1.setText('c:')
@@ -62,6 +130,11 @@ class Gui(QMainWindow, QWidget):
         self.text_box3.setText('1500')
 
     def window_specs(self):
+        '''Additional window spefications.
+                Removed maximize button.
+                Set logo.
+                Window placement.
+        '''
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint) #cancels out maximize optio
         app_icon = QIcon("ms2compare.png")
         self.setWindowTitle('CompareMS2Gui')
@@ -70,6 +143,8 @@ class Gui(QMainWindow, QWidget):
         self.setWindowIcon(app_icon)
 
     def text_labels(self):
+    '''Method that creates all required text labels and passes them to the label_style method for placement and styling.
+    '''
         self.text_label1 = QLabel(self)
         self.text_label2 = QLabel(self)
         self.text_label3 = QLabel(self)
