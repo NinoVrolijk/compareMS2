@@ -44,18 +44,30 @@ class Gui(QMainWindow, QWidget):
             Set logo.
     text_labels(self):
         Method that creates all required text labels and passes them to the label_style method for placement and styling.
-
     label_style(self,text_label,orientation):
-
+        This methods adds styling properties to the text labels created by the text_labels method.
+        Furthermore it places the labels correctly onto the screen.
+        Attributes
+        ---------
+        text_label
+            The text label is originated from the text_labels(self) method. Contains a string.
+        orientation
+            Integer for horizontal placement on the inputs screen.
     button_creator(self):
-
+        Method that creates all required buttons for the inputs screen.
     button_style(self,button,orientation):
-
+        This method adds styling properties to the buttons created in the button_creator method.
+        Furthermore it places the buttons correctly onto the screen.
+        Attributes:
+        -----------
+        button
+            Push button that is created in button_creator(self)
+        Orientation
+            Integer for vertical placement on the input screen.
     menubar(self):
-
+        Method that creates the menu bar and adds root menus.
     reveal(self):
-
-
+        Method that reveals main input screen and hides introduction screen.
     '''
     def __init__(self):
         super().__init__()
@@ -143,8 +155,9 @@ class Gui(QMainWindow, QWidget):
         self.setWindowIcon(app_icon)
 
     def text_labels(self):
-    '''Method that creates all required text labels and passes them to the label_style method for placement and styling.
-    '''
+        '''Method that creates all required text labels and passes them to the label_style
+            method for placement and styling.
+        '''
         self.text_label1 = QLabel(self)
         self.text_label2 = QLabel(self)
         self.text_label3 = QLabel(self)
@@ -179,6 +192,15 @@ class Gui(QMainWindow, QWidget):
         self.label_style(self.text_label10, 440)
 
     def label_style(self,text_label,orientation):
+        '''This methods adds styling properties to the text labels created by the text_labels method.
+        Furthermore it places the labels correctly onto the screen.
+        Attributes:
+        ---------
+        text_label
+            The text label is originated from the text_labels(self) method. Contains a string.
+        orientation
+            Integer for vertical placement on the inputs screen.
+        '''
         text_label.move(30, orientation)
         text_label.resize(300, 50)
         font = QFont("Arial",9)
@@ -191,6 +213,8 @@ class Gui(QMainWindow, QWidget):
         self.text_label6.setFont(self.font_cursive)
 
     def button_creator(self):
+        '''Method that creates all required buttons for the inputs screen.
+        '''
         self.browse_button0 = QPushButton('Browse File',self)
         self.browse_button1 = QPushButton('Browse File',self)
         self.button_style(self.browse_button0,110) #initiates button style function.
@@ -206,11 +230,22 @@ class Gui(QMainWindow, QWidget):
         self.cancel_button.setStyleSheet("border-radius: 7px;border: 2px solid ;font: bold; background-color: darkblue; color: white;border-color: white;")
 
     def button_style(self,button,orientantion):
+        '''This method adds styling properties to the buttons created in the button_creator method.
+        Furthermore it places the buttons correctly onto the screen.
+        Attributes:
+        -----------
+        button
+            Push button that is created in button_creator(self)
+        Orientation
+            Integer for vertical placement on the input screen.
+        '''
         button.setStyleSheet("border-radius: 7px;border: 2px solid ;font: bold; background-color: darkblue; color: white;border-color: white;")
         button.resize(100, 33)
         button.move(770,orientantion)
 
     def menubar(self):
+        '''Method that creates the menu bar and adds root menus.
+        '''
         #create menubar
         self.bar = self.menuBar()
         #Create root Menus
