@@ -13,7 +13,6 @@ class tree_analysis(QDialog):
     ---------
     distance_matrix
         MEGA distance matrix file.
-
     Methods
     -------
     image_generator(self,distance_matrix):
@@ -29,6 +28,7 @@ class tree_analysis(QDialog):
     '''
     def __init__(self,distance_matrix): #add distance_matrix
         super().__init__()
+        print (distance_matrix)
         #distance_matrix = 'output3_distance_matrix_converted.meg'
         self.title = 'compareMS2Gui'
         self.left = 600

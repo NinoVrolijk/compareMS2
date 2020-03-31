@@ -18,6 +18,12 @@ class functional (Gui):
     X
     Methods
     -------
+    write_checkbox(self):
+        Method that appends checkbox status to saved file.
+        Attributes
+        ----------
+        f
+            Filename, this is the file that is being used in save_trigger.
     openFileDialog1(self):
         Open filedialog to upload input files into text box1.
     openFileDialog2(self):
@@ -98,19 +104,67 @@ class functional (Gui):
         '''
         qApp.quit() #Terminates screen
 
-    def save_trigger(self):
+    def save_trigger(self,orientation):
         '''Allows the user to save input specified in the central input screen.
+        When not inputs have been specified, the program ask the user to specify every input.
         '''
-        self.save_name = QFileDialog.getSaveFileName(self,'Save file',"compareMS2options","Text file(*.txt)")
-        f = open(self.save_name[0], 'w')
-        f.write(self.text_box1.text()+"\n")
-        f.write(self.text_box2.text()+"\n")
-        f.write(self.text_box3.text()+"\n")
-        f.write(self.text_box4.text()+"\n")
-        f.write(self.text_box5.text()+"\n")
-        f.write(self.text_box6.text()+"\n")
-        f.close()
-        #To do! Add default options when the text_box is left empty. And add checkbox parameters.
+        if orientation == False:
+            self.save_name = QFileDialog.getSaveFileName(self,'Save file',"compareMS2options","Text file(*.txt)")
+            f = open(self.save_name[0], 'w')
+        elif orientation == 1:
+            f = open('ms2compare_input.txt','w')
+        if all([len(self.text_box1.text()) > 0, len(self.text_box2.text()) > 0, len(self.text_box3.text()) > 0,len(self.text_box4.text()) > 0,
+                len(self.text_box5.text()) > 0,len(self.text_box6.text()) > 0]): #Checks if all text boxes have been filled.
+            f.write(self.text_box1.text() + ";Directory\n")
+            f.write(self.text_box2.text() + ";Maximum precursor\n")
+            f.write(self.text_box3.text() + ";Chromatic peak width\n")
+            f.write(self.text_box4.text() + ";Table with samples\n")
+            f.write(self.text_box5.text() + ";output filename\n")
+            f.write(self.text_box6.text() + ";Score (cosine) cutoff\n")
+            self.write_checkbox(f)
+            f.close()
+        else:
+            msg = QMessageBox()
+            msg.setWindowTitle("Error saving input")
+            msg.setText("Not all inputs have been specified! Try again")
+            msg.setIcon(QMessageBox.Warning)
+            x = msg.exec_()  # Shows message box
+
+    def write_checkbox(self,f):
+        ''' Method that appends checkbox status to saved file.
+        Attributes
+        ----------
+        f
+            Filename, this is the file that is being used in save_trigger.
+        '''
+        if self.check_capture_log.isChecked():
+            f.write('+;capture_log\n')
+        else:
+            f.write('-;capture_log\n')
+        if self.check_rich_output.isChecked():
+            f.write('+;rich_output\n')
+        else:
+            f.write('-;rich_output\n')
+        if self.avcps.isChecked():
+            f.write('+;average comparisons\n')
+        else:
+            f.write('-;average comparisons\n')
+        if self.check_nexus_output.isChecked():
+            f.write('+;Nexus output\n')
+        else:
+            f.write('-;Nexus output\n')
+        if self.check_NEELY_output.isChecked():
+            f.write('+;Neely output\n')
+        else:
+            f.write('-;Neely output\n')
+        if self.check_MEGA_output.isChecked():
+            f.write('+;MEG output\n')
+        else:
+            f.write('-;MEG output\n')
+        if self.check_missing_values.isChecked():
+            f.write('+;Missing values\n')
+        else:
+            f.write('-;Missing values\n')
 
     def load_trigger(self):
         '''Allows the user to upload previously specified inputs into to the central input screen. (Uploads .txt file)
@@ -119,12 +173,53 @@ class functional (Gui):
                                                     '', "txt file (*.txt )")
         with open(self.options_file[0], "r") as f: #Opens filename as read only.
             file = f.readlines()                   #Read seperate lines of file.
-            self.text_box1.setText(file[0])
-            self.text_box2.setText(file[1])
-            self.text_box3.setText(file[2])
-            self.text_box4.setText(file[3])
-            self.text_box5.setText(file[4])
-            self.text_box6.setText(file[5])
+            directory = file[0].split(';')
+            self.text_box1.setText(directory[0])
+            mp = file[1].split(';')
+            self.text_box2.setText(mp[0])
+            cpw = file[2].split(';')
+            self.text_box3.setText(cpw[0])
+            tws = file[3].split(';')
+            self.text_box4.setText(tws[0])
+            ofn = file[4].split(';')
+            self.text_box5.setText(ofn[0])
+            cutoff = file[5].split(';')
+            self.text_box6.setText(cutoff[0])
+            capture_log = file[6].split(';')
+            rich_log = file[7].split(';')
+            average_comparison = file[8].split(';')
+            nexus_box = file[9].split(';')
+            neely_box = file[10].split(';')
+            MEG_box = file[11].split(';')
+            missing_values = file[12].split(';')
+            if capture_log[0] == "+":
+                self.check_capture_log.setChecked(True)
+            else:
+                self.check_capture_log.setChecked(False)
+            if rich_log[0] == "+":
+                self.check_rich_output.setChecked(True)
+            else:
+                self.check_rich_output.setChecked(False)
+            if average_comparison[0] == "+":
+                self.avcps.setChecked(True)
+            else:
+                self.avcps.setChecked(False)
+            if nexus_box[0] == "+":
+                self.check_nexus_output.setChecked(True)
+            else:
+                self.check_nexus_output.setChecked(False)
+            if neely_box[0] == "+":
+                self.check_NEELY_output.setChecked(True)
+            else:
+                self.check_NEELY_output.setChecked(False)
+            if MEG_box[0] == "+":
+                self.check_MEGA_output.setChecked(True)
+            else:
+                self.check_MEGA_output.setChecked(False)
+            if missing_values[0] == "+":
+                self.check_missing_values.setChecked(True)
+            else:
+                self.check_missing_values.setChecked(False)
 
     def new_trigger(self):
         '''Wipes input specifications and return default values.
@@ -159,6 +254,7 @@ class functional (Gui):
             x = msg.exec_() #Shows message box
             self.hide() #Hide input screen.
             self.distance_matrix_file = self.text_box5.text()
+            self.save_trigger(1)
             while True: #While loop used to update the tree image.
                 self.tree_processing(self.distance_matrix_file) #Creates new image each iteration of loop.
                 QtTest.QTest.qWait(10000) #Wait every X amount of miliseconds after each iteration.
@@ -182,7 +278,6 @@ class functional (Gui):
         '''
         self.tree.hide()
         self.show()
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

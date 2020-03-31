@@ -88,7 +88,7 @@ class Gui(QMainWindow, QWidget):
         self.hide()
 
     def checkbox(self):
-        '''CMethod that creates all required checkboxes.
+        '''Method that creates all required checkboxes.
         '''
         self.check_capture_log = QCheckBox("Capture log", self)
         self.check_rich_output = QCheckBox("Rich output", self)
@@ -109,7 +109,7 @@ class Gui(QMainWindow, QWidget):
         checkbox.move(orientation,520)
         self.check_capture_log.move(30, 250)
         self.check_rich_output.move(170, 250)
-        self.avcps.resize(250, 30)
+        self.avcps.resize(250, 50)
         self.avcps.move(30, 480)
         self.check_capture_log.setChecked(True)
 
@@ -131,7 +131,6 @@ class Gui(QMainWindow, QWidget):
         self.text_box_orientation(self.text_box6,450)
 
     def text_box_orientation(self,text_box,orientation):
-
         '''A method that places all text boxes (input) that have been created in text_box(self) onto the central input screen.
         Some text_boxes receive a generic input that serves as an example.
         '''
