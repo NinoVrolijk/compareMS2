@@ -22,7 +22,7 @@ class functional (Gui):
         Method that appends checkbox status to saved file.
         Attributes
         ----------
-        f
+        file
             Filename, this is the file that is being used in save_trigger.
     openFileDialog1(self):
         Open filedialog to upload input files into text box1.
@@ -53,6 +53,8 @@ class functional (Gui):
         super().__init__()
         self.functional_toolbar()
         self.functional_buttons()
+        #print (self.geometry()) Get geometry of screen
+
 
     def openFileDialog1(self):
         '''Open filedialog to upload input files into text box1.
@@ -82,6 +84,10 @@ class functional (Gui):
         quit_action.setShortcut('Ctrl+Q')
         load_action = QAction('Load options',self)
         load_action.setShortcut('Ctrl+L')
+        getting_started = QAction('Getting started',self)
+        update_check = QAction('Check for updates',self)
+        self.help.addAction(getting_started) #create popup screen method.
+        self.help.addAction(update_check)    #Create reference to a website?
         self.file.addAction(load_action)
         self.file.addAction(save_action)
         self.file.addAction(quit_action)
@@ -237,6 +243,8 @@ class functional (Gui):
         self.check_MEGA_output.setChecked(False)
         self.check_NEELY_output.setChecked(False)
         self.check_missing_values.setChecked(False)
+        self.setGeometry(500, 300, 150, 150)  # Orientation of screen
+        self.resize(1000, 620)  # Size of screen
 
     def submitmethod(self):
         '''Checks and sumbits specified input after connection of submit pushbutton. If all inputs have been approved, the program continues to the tree_analysis screen.
