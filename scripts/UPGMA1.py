@@ -24,13 +24,14 @@ class UPGMA1():
         self.M_labels2 = []
         self.M2 = [[]]
         self.label_count = 0
-        with open(dmf,'r') as f:
+        self.scoring = []
+        with open(dmf, 'r') as f:
             for line in f:
                 if line.startswith('#') and line[1].isupper():
                     self.M_labels2.append(line[1:].strip()) #Remove \n and #
                     self.label_count += 1
                 if line[0].isdigit():
-                    if len(line.strip().split(' ')) > 0:#Each distance is seperate item in list.
+                    if len(line.strip().split(' ')) > 0:#Each distance is seperate item in list. add space and tab
                         l = []                           #Wipes after each iteration of the loop.
                         for i in (line.strip().split(' ')):
                             l.append(float(i))
@@ -42,50 +43,45 @@ class UPGMA1():
     def create_tree(self,output):
         ''' This method visualizes the tree into a .png file.'''
         t = Tree(output + ";", format=1)
+        label_score = [] #each element is labele with comparison score.
+
+        if self.label_count == 2: #If self.label_count equals the amount of samples the user has inputted.
+            with open ('2019-4-15_BB1.mgf_results.txt','r') as x: #open each individual comparison file.
+                for line in x:
+                    if line.strip().startswith('dataset'):
+                        id = line.strip().split('\t')[1].split(' ')[0] #Has to be seperated by tab in file.
+                        score = line.strip().split('\t')[1].split(' ')[-1] #last element of the line has score.
+                        id = id.split(':')[1].split('.')[0]
+                        label_score.append([id,score])
+                if len(label_score) == self.label_count: # if all labels are present in the label_score list.
+                    color = self.color_selector(label_score)
+                    print (color)
+                    print (label_score[0][0])
+                    for n in t.traverse():
+                        if n.is_leaf() and n.name.startswith(label_score[0][0]):
+                            n.img_style["fgcolor"] = color
         ts = TreeStyle()
         ts.show_leaf_name = True
-        for n in t.traverse():
-            nstyle = NodeStyle()
-            nstyle["fgcolor"] = "black"
-            n.set_style(nstyle)
-        #Set root bold solid blue.
-        style = NodeStyle()
-        style["fgcolor"] = "#000000"
-        style["size"] = 0
-        style["vt_line_color"] = "#0000aa"
-        style["hz_line_color"] = "#0000aa"
-        style["vt_line_width"] = 3
-        style["hz_line_width"] = 3
-        style["vt_line_type"] = 0  # 0 solid, 1 dashed, 2 dotted
-        style["hz_line_type"] = 0
-        t.set_style(style)
-        #Set color on different groups
-        style1 = NodeStyle()
-        style1["fgcolor"] = "#0f0f0f"
-        style1["size"] = 0
-        style1["vt_line_color"] = "#ff0000"
-        style1["hz_line_color"] = "#ff0000"
-        style1["vt_line_width"] = 2
-        style1["hz_line_width"] = 2
-        style1["vt_line_type"] = 2  # 0 solid, 1 dashed, 2 dotted
-        style1["hz_line_type"] = 2
-        t.children[0].img_style = style1
-        t.children[1].img_style = style1
-        # Set color on leaves.
-        style2 = NodeStyle()
-        style2["fgcolor"] = "#0f0f0f"
-        style2["shape"] = "circle"
-        style2["vt_line_color"] = "#ff0000"
-        style2["hz_line_color"] = "#ff0000"
-        style2["vt_line_width"] = 2
-        style2["hz_line_width"] = 2
-        style2["vt_line_type"] = 0  # 0 solid, 1 dashed, 2 dotted
-        style2["hz_line_type"] = 0
-        for l in t.iter_leaves():
-            # l is the label
-            l.img_style = style2
         t.render("test.png", w=183, units="mm", tree_style=ts)
-        return t
+
+    def color_selector(self,label_score):
+        scores = []
+        for y in label_score:
+            scores.append(y[1])
+        maximum = int(max(scores))
+        minimum = int(min(scores))
+        factor = (maximum-minimum)/(maximum-minimum)
+        if 1 >= factor > 0.8:
+            color = 'Green'
+        elif 0.8 > factor > 0.6:
+            color = 'LightGreen'
+        elif 0.6 > factor > 0.4:
+            color = 'Orange'
+        elif 0.4 > factor > 0.2:
+            color = 'OrangeRed'
+        elif 0.2 > factor > 0:
+            color = 'Red'
+        return color
 
     def lowest_cell(self,table):
         # Set default to infinity
