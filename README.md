@@ -11,9 +11,9 @@ This file is dedicated to getting the user started with the compareMS2Gui. The r
 The programs and libraries that need to be installed to run the CompareMS2Gui software.
 
 ```
-Python 3. available from https://www.python.org/downloads/
-ETE3 Toolkit.
-Pyqt5.
+- Python 3. available from https://www.python.org/downloads/
+- ETE3 Toolkit.
+- Pyqt5.
 ```
 
 ### Installing
