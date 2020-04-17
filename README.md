@@ -35,7 +35,13 @@ Now you have all required programs and libraries present.
 until finished
 ```
 
-## Running the software.
+## Using the software.
+The Gui consist of 3 distinct components.
+  1. Introduction screen.
+  2. Main input screen.
+  3. Phylogenetic tree analysis screen.
+The introduction screen contains information about the compareMS2Gui. The main input screen is the central screen of the Gui. This is where the user can specify various parameters for the CompareMS2 algorithm. These parameters are used to create the phylogenetic tree. This tree is visualized in the final screen. The tree analysis screen gives the user real-time feedback on the progression of the analysis. When the tree is completed the Gui colors each seperate leaf, this is an quality control step. The colors range from green (high quality) to red (low quality).
+
 
 ## Authors
 
