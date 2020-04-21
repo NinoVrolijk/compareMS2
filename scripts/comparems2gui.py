@@ -109,8 +109,8 @@ class Gui(QMainWindow, QWidget):
         checkbox.move(orientation,520)
         self.check_capture_log.move(30, 250)
         self.check_rich_output.move(170, 250)
-        self.avcps.resize(250, 50)
-        self.avcps.move(30, 480)
+        self.avcps.resize(250, 30)
+        self.avcps.move(30, 490)
         self.check_capture_log.setChecked(True)
 
     def text_box(self):

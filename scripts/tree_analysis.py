@@ -17,6 +17,10 @@ class tree_analysis(QDialog):
     -------
     image_generator(self,distance_matrix):
         Induces UPGMA algorithm and saves newick tree format.
+        Attributes
+        ----------
+            distance_matrix
+
     layout_image(self):
         Creates groupbox. This vertical groupbox contains the tree image and a progress bar.
     layout_buttons(self):

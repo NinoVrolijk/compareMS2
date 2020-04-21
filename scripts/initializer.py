@@ -60,15 +60,15 @@ class functional (Gui):
         '''Open filedialog to upload input files into text box1.
         '''
         self.filename = QFileDialog.getOpenFileName(self, 'Open file',
-                                            'c:\\', "MGF file or mzML file (*.MGF *.mzML)") #Add more extensions.
-        self.filepath = self.filename[0] #Filepath is present in first elemant of the retrieved filename.
+                                            'c:\\', "MGF file or mzML file (*.MGF *.mzML)") #Possibly add more extensions.
+        self.filepath = self.filename[0]      #Filepath is present in first elemant of the retrieved filename.
         self.text_box1.setText(self.filepath) #Set text box1 with uploaded file.
 
     def openFileDialog2(self):
         ''' Open filedialog to upload input files into text box4.
         '''
         self.filename = QFileDialog.getOpenFileName(self, 'Open file',
-                                            'c:\\', "MGF file or mzML file (*.MGF *.mzML)") #Add more extensions.
+                                            'c:\\', "MGF file or mzML file (*.MGF *.mzML)") #Possibly add more extensions.
         self.filepath = self.filename[0]
         self.text_box4.setText(self.filepath) #Set text box 4 with uploaded file.
 
@@ -87,7 +87,7 @@ class functional (Gui):
         getting_started = QAction('Getting started',self)
         update_check = QAction('Check for updates',self)
         self.help.addAction(getting_started) #create popup screen method.
-        self.help.addAction(update_check)    #Create reference to a website?
+        self.help.addAction(update_check)    #Create reference to a website/GitHub
         self.file.addAction(load_action)
         self.file.addAction(save_action)
         self.file.addAction(quit_action)
@@ -129,7 +129,7 @@ class functional (Gui):
             f.write(self.text_box6.text() + ";Score (cosine) cutoff\n")
             self.write_checkbox(f)
             f.close()
-        else:
+        else: #One text box misses input.
             msg = QMessageBox()
             msg.setWindowTitle("Error saving input")
             msg.setText("Not all inputs have been specified! Try again")
@@ -179,7 +179,7 @@ class functional (Gui):
                                                     '', "txt file (*.txt )")
         with open(self.options_file[0], "r") as f: #Opens filename as read only.
             file = f.readlines()                   #Read seperate lines of file.
-            directory = file[0].split(';')
+            directory = file[0].split(';')         #The text file that contains the saved inputs uses ; as a separator
             self.text_box1.setText(directory[0])
             mp = file[1].split(';')
             self.text_box2.setText(mp[0])
@@ -198,9 +198,9 @@ class functional (Gui):
             neely_box = file[10].split(';')
             MEG_box = file[11].split(';')
             missing_values = file[12].split(';')
-            if capture_log[0] == "+":
+            if capture_log[0] == "+":                   # + means checked
                 self.check_capture_log.setChecked(True)
-            else:
+            else:                                       # if not checked, it is automatically unchecked.
                 self.check_capture_log.setChecked(False)
             if rich_log[0] == "+":
                 self.check_rich_output.setChecked(True)
@@ -229,6 +229,7 @@ class functional (Gui):
 
     def new_trigger(self):
         '''Wipes input specifications and return default values.
+        SetText with generic examples.
         '''
         self.text_box1.setText(':c')
         self.text_box2.setText('2.05')
