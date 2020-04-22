@@ -40,7 +40,7 @@ until finished
 The GUI consists of 3 distinct components, or screens:
   1. An introduction screen
   2. The main input screen
-  3. A phylogenetic tree analysis screen \n
+  3. A phylogenetic tree analysis screen <br>
 The introduction screen contains information about compareMS2GUI. The main input screen is the central screen of the GUI. This is where the user can specify various parameters for the compareMS2 algorithm. These parameters are used to create the phylogenetic tree. This tree is visualized in the final screen. The tree analysis screen gives the user real-time feedback on the progression of the analysis. When the tree is completed the GUI updates the colors each seperate leaf. By default, the colors indicate the number of tandem mass spectra in the dataset, ranging from green (within 80% of the largest dataset in the input, indicating high quality) to red (below 20%, suggesting the dataset is of low quality or contains less information).
 
 As with the command-line version, compareMS2GUI outputs files in MEGA and other formats, for further phylogenetic analysis and visualization. The UPGMA tree built in real time by compareMS2GUI is primarily meant to monitor the progress and provide early quality control, allowing the user to interrupt the process if the results do not look like expected or the parameters may have been wrong.
