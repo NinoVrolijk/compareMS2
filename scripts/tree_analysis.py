@@ -20,7 +20,6 @@ class tree_analysis(QDialog):
         Attributes
         ----------
             distance_matrix
-
     layout_image(self):
         Creates groupbox. This vertical groupbox contains the tree image and a progress bar.
     layout_buttons(self):
@@ -30,9 +29,8 @@ class tree_analysis(QDialog):
     InitWindow(self):
          Initializes window.
     '''
-    def __init__(self,distance_matrix): #add distance_matrix
+    def __init__(self,distance_matrix):
         super().__init__()
-        #distance_matrix = 'output3_distance_matrix_converted.meg'
         self.title = 'compareMS2Gui'
         self.left = 600
         self.top = 250

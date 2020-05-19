@@ -127,6 +127,7 @@ class functional (Gui):
             f.write(self.text_box4.text() + ";Table with samples\n")
             f.write(self.text_box5.text() + ";output filename\n")
             f.write(self.text_box6.text() + ";Score (cosine) cutoff\n")
+            f.write(self.text_box7.text() + ";Amount of samples\n")
             self.write_checkbox(f)
             f.close()
         else: #One text box misses input.
@@ -191,13 +192,16 @@ class functional (Gui):
             self.text_box5.setText(ofn[0])
             cutoff = file[5].split(';')
             self.text_box6.setText(cutoff[0])
-            capture_log = file[6].split(';')
-            rich_log = file[7].split(';')
-            average_comparison = file[8].split(';')
-            nexus_box = file[9].split(';')
-            neely_box = file[10].split(';')
-            MEG_box = file[11].split(';')
-            missing_values = file[12].split(';')
+            a_s = file[6].split(';')
+            print (a_s)
+            self.text_box7.setText(a_s[0])
+            capture_log = file[7].split(';')
+            rich_log = file[8].split(';')
+            average_comparison = file[9].split(';')
+            nexus_box = file[10].split(';')
+            neely_box = file[11].split(';')
+            MEG_box = file[12].split(';')
+            missing_values = file[13].split(';')
             if capture_log[0] == "+":                   # + means checked
                 self.check_capture_log.setChecked(True)
             else:                                       # if not checked, it is automatically unchecked.
@@ -257,7 +261,7 @@ class functional (Gui):
         if len(directory_file) == 0 and len(self.filepath) > 0: #check if there is a directory file provided
             self.text_box1.setText(self.filepath)
         fp = self.text_box1.text() #Filepath is saved into variable.
-        if len(fp) > len("c:") and len(self.text_box5.text()) > 1: #this determines whether a complete file path has been submitted.
+        if len(fp) > len("c:") and len(self.text_box5.text()) > 1 and self.text_box7.text().isdigit(): #this determines whether a complete file path has been submitted.
             msg.setText("Congratulations, your input has been succesfully submitted. The tree is being generated")
             msg.setIcon(QMessageBox.Information)
             x = msg.exec_() #Shows message box
@@ -267,8 +271,8 @@ class functional (Gui):
             while True: #While loop used to update the tree image.
                 self.tree_processing(self.distance_matrix_file) #Creates new image each iteration of loop.
                 QtTest.QTest.qWait(10000) #Wait every X amount of miliseconds after each iteration.
-        elif len(fp) <= len("c:") or len(self.text_box5.text()) == 0: #Checks if there is a file provided.
-            msg.setText("Not all inputs have been specified! Try again")
+        elif len(fp) <= len("c:") or len(self.text_box5.text()) == 0 or self.text_box7.text().isalpha(): #Checks if there is a file provided.
+            msg.setText("Not all inputs have been specified correctly! Try again")
             msg.setIcon(QMessageBox.Warning)
             x = msg.exec_()  # Shows message box
             self.new_trigger() #Wipes the screen.
@@ -277,7 +281,7 @@ class functional (Gui):
         '''Displays the tree analysis screen. Adds functionality to buttons and updates progressbar.
         '''
         self.tree = tree_analysis(distance_matrix_file) #Calls tree screen and passes the distance matrix file.
-        percentual_progress = (self.tree.upgma_result.label_count / 118) * 100  # Divide with amount of samples present in input file. 100 is generic number used to test.
+        percentual_progress = (self.tree.upgma_result.label_count / int(self.text_box7.text())) * 100  # Divide with amount of samples present in input file. 100 is generic number used to test.
         self.tree.progress.setValue(percentual_progress)
         self.tree.return_button.clicked.connect(self.return_gui) #Adds functional property to return button.
         self.tree.show() #Show tree analysis screen.

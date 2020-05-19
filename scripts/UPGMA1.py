@@ -1,7 +1,5 @@
 from ete3 import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+import os
 
 class UPGMA1():
     '''
@@ -16,8 +14,11 @@ class UPGMA1():
     '''
     def __init__(self,distance_matrix_file):
         super().__init__()
-        dmf = distance_matrix_file.strip() #Remove any spaces at the end of filename. This way the space doesnt interfere with string length.
-        self.input_gen(dmf)
+        self.dmf = distance_matrix_file.strip() #Remove any spaces at the end of filename. This way the space doesnt interfere with string length.
+        self.input_gen(self.dmf)
+        current_dir = os.getcwd()
+        print (current_dir)
+
 
     def input_gen(self,dmf):
         ''' Input is a distance matrix file. The file gets translated into a NEWICK formatted tree. This translation is facilitated
@@ -46,6 +47,7 @@ class UPGMA1():
                                                      #Tree is saved in "output" variable.
         self.create_tree(output) #Use output to create tree.
 
+
     def create_tree(self,output):
         ''' This method visualizes the tree into a .png file. The ETE3 Toolkit is the phylogenetic library that is used to
         create the image.
@@ -56,8 +58,8 @@ class UPGMA1():
         '''
         t = Tree(output + ";", format=1)
         label_score = [] #each element is labele with comparison score.
-        if self.label_count == 3: #If self.label_count equals the amount of samples the user has inputted.
-            with open ('2019-4-15_BB1.mgf_results.txt','r') as x: #open each individual comparison file. This wil be added to the matrix file.
+        if self.label_count == 4: #If self.label_count equals the amount of samples the user has inputted.
+            with open (self.dmf, 'r') as x: #open each individual comparison file. This wil be added to the matrix file.
                 for line in x:
                     if line.strip().startswith('dataset'):
                         id = line.strip().split('\t')[1].split(' ')[0] #Has to be seperated by tab in file.
@@ -66,12 +68,11 @@ class UPGMA1():
                         label_score.append([id,score]) #Append score (list) with elements that combine the id and score.
                 if len(label_score) == self.label_count: # if all labels are present in the label_score list.
                         color = self.color_selector(label_score)
-                        count = 0
-                        for n in t.traverse() : #Go through every leaf  of tree seperatly.
-                            if n.is_leaf() and n.name.startswith(label_score[count][0]): #If leaf name startswith score name, color node accordingly.
-                                n.img_style["fgcolor"] = color[count]                    #Elements in color and label_score share same order. This way
-                                                                                         #same indexing can be used.
-                                count += 1
+                        for n in t.traverse():
+                            if n.is_leaf():
+                                for y in color:
+                                    if y[0] == n.name:
+                                        n.img_style["fgcolor"] = y[2]
         ts = TreeStyle()
         ts.show_leaf_name = True
         t.render("test.png", w=183, units="mm", tree_style=ts)
@@ -87,12 +88,12 @@ class UPGMA1():
         scores = []
         colors = []
         for y in label_score:
-            scores.append(y[1]) #filter out quality scores.
-        minimal = int(min(scores))
-        maximal = int(max(scores))
+            scores.append(int(y[1])) #filter out quality scores.
+        maximal = max(scores)
+        minimal = min(scores)
+        count = 0
         for x in scores:
             #Maintains relation between index x in scores and index x in label
-                                                                        #factor = ((x)-int(min(scores)))/(int(max(scores))-int(min(scores)))
             factor = (int(x) - minimal) / (maximal - minimal)
             if 1 >= factor > 0.8:
                 color = 'Green'
@@ -102,10 +103,12 @@ class UPGMA1():
                 color = 'Orange'
             elif 0.4 > factor > 0.2:
                 color = 'OrangeRed'
-            elif 0.2 > factor >= 0:
+            elif 0.2 > factor >= 0.0:
                 color = 'Red'
-            colors.append(color)
-        return colors
+            label_score[count].append(color)
+            count +=1
+
+        return label_score
 
     def lowest_cell(self,table):
         # Set default to infinity

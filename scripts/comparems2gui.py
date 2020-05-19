@@ -123,6 +123,9 @@ class Gui(QMainWindow, QWidget):
         self.text_box4 = QLineEdit(self)
         self.text_box5 = QLineEdit(self)
         self.text_box6 = QLineEdit(self)
+        self.text_box7 = QLineEdit(self)
+        self.text_box7.resize(40,20)
+        self.text_box7.move(455,495)
         self.text_box_orientation(self.text_box1,110)
         self.text_box_orientation(self.text_box2,160)
         self.text_box_orientation(self.text_box3,210)
@@ -147,7 +150,7 @@ class Gui(QMainWindow, QWidget):
                 Window placement.
         '''
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint) #cancels out maximize optio
-        app_icon = QIcon("ms2compare.png")
+        app_icon = QIcon(self.intro_screen.logo_path)
         self.setWindowTitle('CompareMS2Gui')
         self.setGeometry(500,300,150,150) #Orientation of screen
         self.resize(1000,620)             #Size of screen
@@ -167,6 +170,7 @@ class Gui(QMainWindow, QWidget):
         self.text_label8 = QLabel(self)
         self.text_label9 = QLabel(self)
         self.text_label10 = QLabel(self)
+        self.text_label11 = QLabel(self)
         self.text_label1.setText('Specify inputs to compareMS2:')
         self.text_label2.setText('Directory of MGF or mzML file:')
         self.text_label3.setText('Maximum precursor mass difference:')
@@ -177,12 +181,15 @@ class Gui(QMainWindow, QWidget):
         self.text_label8.setText('Table with sample to species relationships:')
         self.text_label9.setText('Output filename root')
         self.text_label10.setText('Score (cosine) cutoff')
+        self.text_label11.setText('Amount of samples.')
+        self.text_label11.move(338,497)
         self.text_label1.move(15, 10)
         self.text_label5.move(770, 160)
         self.text_label6.move(770, 210)
         self.text_label7.move(15, 270)
         self.text_label1.resize(300, 100)
         self.text_label7.resize(500, 100)
+        self.text_label11.resize(110, 15)
         self.label_style(self.text_label2, 100)
         self.label_style(self.text_label3, 150)
         self.label_style(self.text_label4, 200)
@@ -220,7 +227,6 @@ class Gui(QMainWindow, QWidget):
         self.button_style(self.browse_button1,350)
         self.submit_button = QPushButton('Submit', self)
         self.cancel_button = QPushButton('Exit', self)
-
         self.submit_button.move(30, 570)
         self.cancel_button.move(180, 570)
         self.submit_button.resize(100, 33)

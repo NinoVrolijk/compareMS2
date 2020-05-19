@@ -1,0 +1,14 @@
+c:test;Directory
+2.05;Maximum precursor
+1500;Chromatic peak width
+test table;Table with samples
+output_distance_matrix.meg;output filename
+1500;Score (cosine) cutoff
+4;Amount of samples
++;capture_log
+-;rich_output
+-;average comparisons
+-;Nexus output
+-;Neely output
+-;MEG output
+-;Missing values

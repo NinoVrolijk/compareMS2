@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-import sys
+import os
 
 class Introduction(QMainWindow, QWidget):
     '''
@@ -45,7 +45,8 @@ class Introduction(QMainWindow, QWidget):
         ''' Creates the image label. This image is placed in the center of the screen.
         '''
         self.image = QLabel(self)
-        self.image.setPixmap(QPixmap('ms2compare.png'))
+        self.logo_path = os.getcwd()+"\ms2compare.png"
+        self.image.setPixmap(QPixmap(self.logo_path))
         self.image.setGeometry(380,180,500,200)
 
     def buttons(self):
@@ -81,7 +82,7 @@ class Introduction(QMainWindow, QWidget):
             Set logo.
         '''
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint) #cancels out maximize option
-        self.app_icon = QIcon("ms2compare.png")
+        self.app_icon = QIcon(self.logo_path)
         self.setWindowIcon(self.app_icon)
         self.setWindowTitle('compareMS2Gui')
         self.setGeometry(500, 300, 150, 150)  # Orientation of screen
