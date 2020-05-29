@@ -1,4 +1,5 @@
 from ete3 import *
+from input_screen import *
 import os
 
 class UPGMA1():
@@ -12,17 +13,17 @@ class UPGMA1():
     to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
     and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
     '''
-    def __init__(self,distance_matrix_file):
+    def __init__(self,distance_matrix_file,sample_amount):
+        self.sample_amount = sample_amount
         super().__init__()
         self.dmf = distance_matrix_file.strip() #Remove any spaces at the end of filename. This way the space doesnt interfere with string length.
         self.input_gen(self.dmf)
         current_dir = os.getcwd()
-        print (current_dir)
 
 
     def input_gen(self,dmf):
         ''' Input is a distance matrix file. The file gets translated into a NEWICK formatted tree. This translation is facilitated
-        by a UPGMA algorithm.
+        by an UPGMA algorithm.
         Attributes
         ----------
             dmf
@@ -43,8 +44,9 @@ class UPGMA1():
                             l.append(float(i))
                             if len(l) == len((line.strip().split(' '))): #If lengths are equal, every distance is acounted for.
                                 self.M2.append(l) #append M2 with all distances on line.
+
         output = self.UPGMA(self.M2, self.M_labels2) #Call the UPGMA algorithm. Returns a NEWICK format tree.
-                                                     #Tree is saved in "output" variable.
+                                                     #Tree is saved in "output" variable
         self.create_tree(output) #Use output to create tree.
 
 
@@ -58,7 +60,7 @@ class UPGMA1():
         '''
         t = Tree(output + ";", format=1)
         label_score = [] #each element is labele with comparison score.
-        if self.label_count == 4: #If self.label_count equals the amount of samples the user has inputted.
+        if self.label_count == self.sample_amount : #If self.label_count equals the amount of samples the user has inputted.
             with open (self.dmf, 'r') as x: #open each individual comparison file. This wil be added to the matrix file.
                 for line in x:
                     if line.strip().startswith('dataset'):
@@ -173,24 +175,15 @@ class UPGMA1():
         while len(labels) > 1:
             # Locate lowest cell in the table
             x, y = self.lowest_cell(table)
-
             # Join the table on the cell co-ordinates
             self.join_table(table, x, y)
-
             # Update the labels accordingly
             self.join_labels(labels, x, y)
-
         # Return the final label
         return labels[0]
 
     ## A test using an example calculation from http://www.nmsr.org/upgma.htm
 
-    # alpha_labels:
-    #   Makes labels from a starting letter to an ending letter
-    def alpha_labels(start, end):
-        labels = []
-        for i in range(ord(start), ord(end)+1):
-            labels.append(chr(i))
-        return labels
+
 
 #https://github.com/lex8erna/UPGMApy/blob/master/UPGMA.py

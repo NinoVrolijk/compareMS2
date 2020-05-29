@@ -1,5 +1,5 @@
 import sys
-from initializer import *
+from CompareMS2GUI import *
 from PyQt5.QtWidgets import *
 from PyQt5 import QtTest
 from UPGMA1 import *
@@ -29,8 +29,9 @@ class tree_analysis(QDialog):
     InitWindow(self):
          Initializes window.
     '''
-    def __init__(self,distance_matrix):
+    def __init__(self,distance_matrix,sample_amount):
         super().__init__()
+        self.sample_amount = sample_amount
         self.title = 'compareMS2Gui'
         self.left = 600
         self.top = 250
@@ -43,7 +44,7 @@ class tree_analysis(QDialog):
 
     def image_generator(self,distance_matrix):
         '''Calls UPGMA algorithm and saves the tree in newick format.'''
-        self.upgma_result = UPGMA1(distance_matrix)
+        self.upgma_result = UPGMA1(distance_matrix,self.sample_amount)
         self.InitWindow() #Call window initializer
 
     def layout_image(self):
