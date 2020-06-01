@@ -31,10 +31,6 @@ Series of steps to make the system ready for the software.
 Now you should have all required programs and libraries present.
 ```
 
-#### MacOS
-```
-until finished
-```
 
 ## Using the software.
 The GUI consists of 3 distinct components, or screens:
