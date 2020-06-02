@@ -72,7 +72,7 @@ class Introduction(QMainWindow, QWidget):
         info.setWindowTitle("compareMS2 information")
         info.setText("Author: Nino Vrolijk\n"
                      "Version: 1.0\n"
-                     "Date: 29-5-2020\n"
+                     "Release Date: 1-6-2020\n"
                      "Organization: LUMC, Leids Universitair Medisch Centrum.")
         info.setIcon(QMessageBox.Information)
         info.setWindowIcon(self.app_icon)
@@ -97,20 +97,24 @@ class Introduction(QMainWindow, QWidget):
         self.text_header = QLabel(self)
         self.text_subtitle = QLabel(self)
         self.text_author = QLabel(self)
+        self.text_version = QLabel(self)
         self.text_header.setText('compareMS2Gui')
         self.text_subtitle.setText('Molecular phylogenetics analyses based on mass spectrometry')
         self.text_author.setText('© LUMC 2020')
+        self.text_version.setText('Version 1.0')
         self.text_header.move(380,50)
         self.text_subtitle.move(310,90)
         self.text_header.resize(300, 50)
         self.text_subtitle.resize(500,50)
-        self.text_author.move(900,580)
+        self.text_author.move(900,560)
+        self.text_version.move(913,580)
         font = QFont("Arial", 15,QFont.ExtraBold)
         font2 = QFont("Arial",7,QFont.Cursive)
         font3 = QFont("Arial",7,QFont.ExtraBold)
         self.text_header.setFont(font)
         self.text_subtitle.setFont(font2)
         self.text_author.setFont(font3)
+        self.text_version.setFont(font3)
 
     def reveal(self):
         '''Reveal screen.

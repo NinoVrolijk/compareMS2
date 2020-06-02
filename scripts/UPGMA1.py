@@ -13,8 +13,8 @@ class UPGMA1():
     to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
     and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
     '''
-    def __init__(self,distance_matrix_file,sample_amount):
-        self.sample_amount = sample_amount
+    def __init__(self,distance_matrix_file):#,sample_amount):
+        #self.sample_amount = sample_amount
         super().__init__()
         self.dmf = distance_matrix_file.strip() #Remove any spaces at the end of filename. This way the space doesnt interfere with string length.
         self.input_gen(self.dmf)
@@ -60,13 +60,12 @@ class UPGMA1():
         '''
         t = Tree(output + ";", format=1)
         label_score = [] #each element is labele with comparison score.
-        if self.label_count == self.sample_amount : #If self.label_count equals the amount of samples the user has inputted.
+        if self.label_count == 8 : #If self.label_count equals the amount of samples the user has inputted.
             with open (self.dmf, 'r') as x: #open each individual comparison file. This wil be added to the matrix file.
                 for line in x:
-                    if line.strip().startswith('dataset'):
-                        id = line.strip().split('\t')[1].split(' ')[0] #Has to be seperated by tab in file.
-                        score = line.strip().split('\t')[1].split(' ')[-1] #last element of the line has score.
-                        id = id.split(':')[1].split('.')[0]
+                    if line.strip().split(" ")[0] == "QC":
+                        id = line.strip().split(" ")[2]
+                        score = line.strip().split(" ")[-1]
                         label_score.append([id,score]) #Append score (list) with elements that combine the id and score.
                 if len(label_score) == self.label_count: # if all labels are present in the label_score list.
                         color = self.color_selector(label_score)
@@ -77,7 +76,7 @@ class UPGMA1():
                                         n.img_style["fgcolor"] = y[2]
         ts = TreeStyle()
         ts.show_leaf_name = True
-        t.render("test.png", w=183, units="mm", tree_style=ts)
+        t.render("compareMS2_tree.png", w=183, units="mm", tree_style=ts)
 
     def color_selector(self,label_score):
         '''Method that determines the coloring of the labels present in the tree.
@@ -90,13 +89,13 @@ class UPGMA1():
         scores = []
         colors = []
         for y in label_score:
-            scores.append(int(y[1])) #filter out quality scores.
+            scores.append(float(y[1])) #filter out quality scores.
         maximal = max(scores)
         minimal = min(scores)
         count = 0
         for x in scores:
             #Maintains relation between index x in scores and index x in label
-            factor = (int(x) - minimal) / (maximal - minimal)
+            factor = (float(x) - minimal) / (maximal - minimal)
             if 1 >= factor > 0.8:
                 color = 'Green'
             elif 0.8 > factor > 0.6:
