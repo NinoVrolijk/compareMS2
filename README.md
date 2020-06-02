@@ -8,12 +8,10 @@ This file is dedicated to getting the user started with the compareMS2GUI. The R
 
 ### Prerequisites
 
-The programs and libraries that need to be installed to run the compareMS2GUI software.
+System prerequisites to run the compareMS2Gui.
 
 ```
-- Python 3. available from https://www.python.org/downloads/
-- ETE3 Toolkit.
-- Pyqt5.
+53 MB free memory space.
 ```
 
 ### Installing
@@ -21,14 +19,10 @@ Series of steps to make the system ready for the software.
 
 #### Windows
 ```
-1. Visit https://www.python.org/downloads/
-2. Download python version 3. for Windows.
-3. Open cmd and navigate to the CompareMS2 folder.
-4. Type : pip install PyQt5
-5. Type : pip install Ete3
-6. Type : pip install pyinstaller
-7. Type : pyinstaller initializer.py
-Now you should have all required programs and libraries present.
+1. Download compareMS2Gui zip file.
+2. Navigate inside the ZIP file to dist/compareMS2Gui/compareMS2Gui.exe.
+3. Run compareMS2Gui.exe.
+4. OPTIONAL: Create a shortcut of the compareMS2Gui.exe file to the desktop. 
 ```
 
 
