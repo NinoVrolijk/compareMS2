@@ -53,7 +53,7 @@ class tree_analysis(QDialog):
         self.groupBox1.setStyleSheet("QGroupBox { font-weight: bold; font-size: 18px } ")
         vbox = QVBoxLayout()
         tree_image = QLabel(self)
-        tree_image.setPixmap(QPixmap('test.png'))
+        tree_image.setPixmap(QPixmap('compareMS2_tree.png'))
         scrollArea = QScrollArea()
         scrollArea.setWidget(tree_image)
         self.progress = QProgressBar(self)
