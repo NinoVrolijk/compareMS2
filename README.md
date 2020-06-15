@@ -45,8 +45,8 @@ As with the command-line version, compareMS2GUI outputs files in MEGA, NEXUS and
 
 ## Authors
 
-* **Nino Vrolijk** - *N.V* - https://github.com/NinoVrolijk
-* **Magnus Palmblad** - *M.P* - https://github.com/magnuspalmblad
+* **Nino Vrolijk** - *N.V.* - https://github.com/NinoVrolijk
+* **Magnus Palmblad** - *M.P.* - https://github.com/magnuspalmblad
 
 ## Acknowledgments
 
