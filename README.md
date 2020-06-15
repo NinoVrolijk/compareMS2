@@ -21,6 +21,11 @@ Series of steps to make the system ready for the software:
 3. Run compareMS2GUI.exe.
 4. OPTIONAL: Create a shortcut of the compareMS2GUI.exe file to the desktop. 
 
+#### Linux
+1.
+2.
+3.
+
 ## Using the software.
 The GUI consists of three windows:
 
