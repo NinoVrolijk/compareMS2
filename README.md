@@ -7,29 +7,34 @@ This is the official repository for the GUI version of compareMS2 software suite
 This README document described how to get started with compareMS2GUI, including system prerequisites and various instructions.
 
 ### Prerequisites
+
 Minimum system prerequisites to run the compareMS2GUI:
 
 * At least 53 MB free hard drive space
 * At least N GB of RAM
 
 ### Installing
-Series of steps to make the system ready for the software:
+
+Follow these steps to install and run compareMS2GUI:
 
 #### Windows
-1. Download compareMS2GUI zip file.
-2. Navigate inside the zip file to dist/compareMS2Gui/compareMS2GUI.exe.
-3. Run compareMS2GUI.exe.
-4. OPTIONAL: Create a shortcut of the compareMS2GUI.exe file to the desktop. 
+
+1. Download compareMS2GUI zip file
+2. Navigate inside the zip file to dist/compareMS2Gui/compareMS2GUI.exe
+3. Run compareMS2GUI.exe
+4. OPTIONAL: Create a shortcut of the compareMS2GUI.exe file to the desktop
 
 #### Linux
+
 1.
 2.
 3.
 
-## Using the software.
+## Using the software
+
 The GUI consists of three windows:
 
-1. An introduction screen with version information
+1. An introduction splash screen with version information
 2. The main control window
 3. A custom phylogenetic tree visualization for quality control (while running)
 
