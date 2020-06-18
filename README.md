@@ -19,7 +19,7 @@ Follow these steps to install and run compareMS2GUI:
 
 #### Windows
 
-1. Download compareMS2GUI zip file
+1. Download compareMS2GUI zip file: https://1drv.ms/u/s!AlAC0vdBgUuQg1YHcnEvdYTYV6KF?e=Qful9b
 2. Navigate inside the zip file to dist/compareMS2Gui/compareMS2GUI.exe
 3. Run compareMS2GUI.exe
 4. OPTIONAL: Create a shortcut of the compareMS2GUI.exe file to the desktop
