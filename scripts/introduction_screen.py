@@ -47,7 +47,7 @@ class Introduction(QMainWindow, QWidget):
         self.image = QLabel(self)
         self.logo_path = os.getcwd()+"\ms2compare.png"
         self.image.setPixmap(QPixmap(self.logo_path))
-        self.image.setGeometry(380,180,500,200)
+        self.image.setGeometry(350,180,500,200)
 
     def buttons(self):
         '''A method to create the required buttons present in the CompareMS2Gui introdcution screen.
@@ -69,7 +69,7 @@ class Introduction(QMainWindow, QWidget):
         ''' Reveal popup information window after connection of information button.
         '''
         info = QMessageBox()
-        info.setWindowTitle("compareMS2 information")
+        info.setWindowTitle("CompareMS2 information")
         info.setText("Author: Nino Vrolijk\n"
                      "Version: 1.0\n"
                      "Release Date: 1-6-2020\n"
@@ -87,7 +87,8 @@ class Introduction(QMainWindow, QWidget):
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint) #cancels out maximize option
         self.app_icon = QIcon(self.logo_path)
         self.setWindowIcon(self.app_icon)
-        self.setWindowTitle('compareMS2Gui')
+        self.setStyleSheet("background-color:white;")
+        self.setWindowTitle('CompareMS2GUI')
         self.setGeometry(500, 300, 150, 150)  # Orientation of screen
         self.resize(1000, 620)  # Size of screen
 
@@ -98,7 +99,7 @@ class Introduction(QMainWindow, QWidget):
         self.text_subtitle = QLabel(self)
         self.text_author = QLabel(self)
         self.text_version = QLabel(self)
-        self.text_header.setText('compareMS2Gui')
+        self.text_header.setText('CompareMS2GUI')
         self.text_subtitle.setText('Molecular phylogenetics analyses based on mass spectrometry')
         self.text_author.setText('© LUMC 2020')
         self.text_version.setText('Version 1.0')

@@ -151,7 +151,7 @@ class Gui(QMainWindow, QWidget):
         '''
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint) #cancels out maximize optio
         app_icon = QIcon(self.intro_screen.logo_path)
-        self.setWindowTitle('CompareMS2Gui')
+        self.setWindowTitle('compareMS2GUI')
         self.setGeometry(500,300,150,150) #Orientation of screen
         self.resize(1000,620)             #Size of screen
         self.setWindowIcon(app_icon)

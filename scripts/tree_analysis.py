@@ -1,7 +1,7 @@
-import sys
+"""import sys
 from compareMS2GUI import *
 from PyQt5.QtWidgets import *
-from PyQt5 import QtTest
+from PyQt5 import QtTest"""
 from UPGMA1 import *
 
 
@@ -29,10 +29,10 @@ class tree_analysis(QDialog):
     InitWindow(self):
          Initializes window.
     '''
-    def __init__(self,distance_matrix):#,sample_amount):
+    def __init__(self,dmf,visibility):#,labels):
         super().__init__()
-        #self.sample_amount = sample_amount
-        self.title = 'compareMS2Gui'
+        self.visibility = visibility
+        self.title = 'CompareMS2GUI'
         self.left = 600
         self.top = 250
         self.width = 700
@@ -40,11 +40,14 @@ class tree_analysis(QDialog):
         self.app_icon = QIcon("ms2compare.png")
         self.setWindowIcon(self.app_icon)
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint)  # cancels out maximize option
-        self.image_generator(distance_matrix)
+        if self.visibility == 0:
+            self.InitWindow()
+        elif self.visibility == 1:
+            self.image_generator(dmf)#,labels)
 
-    def image_generator(self,distance_matrix):
+    def image_generator(self,distance_matrix):#,labels):
         '''Calls UPGMA algorithm and saves the tree in newick format.'''
-        self.upgma_result = UPGMA1(distance_matrix)#,self.sample_amount)
+        self.upgma_result = UPGMA1(distance_matrix)#,labels)#,self.sample_amount)
         self.InitWindow() #Call window initializer
 
     def layout_image(self):
@@ -53,7 +56,10 @@ class tree_analysis(QDialog):
         self.groupBox1.setStyleSheet("QGroupBox { font-weight: bold; font-size: 18px } ")
         vbox = QVBoxLayout()
         tree_image = QLabel(self)
-        tree_image.setPixmap(QPixmap('compareMS2_tree.png'))
+        if self.visibility == 1:
+            tree_image.setPixmap(QPixmap('compareMS2_tree.png'))
+        elif self.visibility == 0:
+            tree_image.setPixmap(QPixmap('1.png'))
         scrollArea = QScrollArea()
         scrollArea.setWidget(tree_image)
         self.progress = QProgressBar(self)
