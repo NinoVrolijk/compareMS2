@@ -11,6 +11,7 @@ class compareMS2():
         self.comparisons()
 
     def retrieve_files(self):
+        '''This method is generate a list of all present MGF files in the directory.'''
         list_mgffiles = []
         path = os.getcwd()
         for filename in os.listdir(path):
@@ -19,6 +20,7 @@ class compareMS2():
         return list_mgffiles
 
     def retrieve_input(self):
+         ''' This method is used to interpret the pre-generated input list derived from the GUI'''
         input_list = []
         with open('ms2compare_input.txt', 'r') as f:
             for line in f:
@@ -26,6 +28,7 @@ class compareMS2():
         return input_list
 
     def comparisons(self):
+        '''This method executes CompareMS2.exe and CompareMS2_to_distance_matrices.exe'''
         cc = 0  # comparisons to be completed
         cc_track = 0  # Completed comparison tracker
         new_index = 1
@@ -69,8 +72,8 @@ class compareMS2():
                         #print (command+arguments)
                     if cc == cc_track:
                         # update tree
-                        print('Completed comp', cc_track, 'Na :', iteration,
-                              'runs')  # hier verschuift de positie van 'nieuwe item' Dus elke x boom updaten
+                        #print('Completed comp', cc_track, 'Na :', iteration,
+                              'runs') 
                         command = "compareMS2_to_distance_matrices.exe"
                         arguments = ' -i all_comparisons.txt -o ' + self.input_list[4][0].split(";")[0] + ' -x ' + self.input_list[3][0].split(";")[0] + ' -m'  # -M because of MEG matrix.
                         os.system(command + arguments)
@@ -81,7 +84,7 @@ class compareMS2():
 
 
     def write_labels(self,label_track):
-        #Check label_track in een lijst. Lijst[0] == labeltrack schrijif dan lijst[1] naar labels.
+        '''Writes labels to text file. These labels are used to create the phylogenetic tree.'''
         sample_to_species = []
         with open(self.input_list[3][0].split(";")[0], 'r') as w:
             for x in w:
@@ -94,38 +97,7 @@ class compareMS2():
                     f.write(title[1])
                     f.write('\n')
 
-
-        #Sample to species is al vol
-        #Je hebt je title lijst
-        #Hiermee ga je door sample to species loopen
-        #with open('labels', 'w') as f:
-        #    for i in (set(label_track)):
-        #        f.write(i)
-        #        f.write('\n')
-
 if __name__ == "__main__":
     compareMS2()
 
-# arguments = " -1 " + self.list_mgffiles[new_index] + " -2 " + self.list_mgffiles[0] + " -w" + "1" + '-p' + "2.25" + \
-#            ' -c' + "0.8" + " -MGF -o " \
-#            + self.list_mgffiles[new_index] + "_vs_" + self.list_mgffiles[0] + "_results.txt"
-# command = "compareMS2.exe"
-# os.system(command + arguments)
-# os.system('dir /b *_results.txt> all_comparisons.txt ')
-# command = "compareMS2_to_distance_matrices.exe"
-# arguments = ' -i all_comparisons.txt -o ' + self.dmf + ' -x ' + 'sample_to_species' + ' -m'  # -M because of MEG matrix.
-# os.system(command + arguments)
 
-
-# ---------------------------------------------------------------------------------------------------------------------
-
-
-# arguments = " -1 " + self.list_mgffiles[new_index] + " -2 " + self.list_mgffiles[y] + " -w" + "1" + '-p' + "2.25" +\
-#           ' -c' + "0.8" + " -MGF -o " \
-#           + self.list_mgffiles[new_index] + "_vs_" + self.list_mgffiles[y] + "_results.txt"
-# command = "compareMS2.exe"
-# os.system(command + arguments)
-# os.system('dir /b *_results.txt> all_comparisons.txt ')
-# command = "compareMS2_to_distance_matrices.exe"
-# arguments = ' -i all_comparisons.txt -o ' + 'testtest.txt' + ' -x ' + 'sample_to_species' + ' -m'  # -M because of MEG matrix.
-# os.system(command + arguments)
